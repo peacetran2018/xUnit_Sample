@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xUnit_Web", "xUnit_Web\xUni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xUnit_Test", "xUnit_Test\xUnit_Test.csproj", "{E900D6BF-71C4-44DC-A803-897EF7F44ECE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{510FEDD3-7D6D-4040-853F-1620C658210C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceContracts", "ServiceContracts\ServiceContracts.csproj", "{B08F68D3-2D82-4176-91B2-6565EA7B456F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{CD1C2924-696C-482F-80A5-96F045E57476}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +30,17 @@ Global
 		{E900D6BF-71C4-44DC-A803-897EF7F44ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E900D6BF-71C4-44DC-A803-897EF7F44ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E900D6BF-71C4-44DC-A803-897EF7F44ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{510FEDD3-7D6D-4040-853F-1620C658210C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{510FEDD3-7D6D-4040-853F-1620C658210C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{510FEDD3-7D6D-4040-853F-1620C658210C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{510FEDD3-7D6D-4040-853F-1620C658210C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B08F68D3-2D82-4176-91B2-6565EA7B456F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B08F68D3-2D82-4176-91B2-6565EA7B456F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B08F68D3-2D82-4176-91B2-6565EA7B456F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B08F68D3-2D82-4176-91B2-6565EA7B456F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD1C2924-696C-482F-80A5-96F045E57476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD1C2924-696C-482F-80A5-96F045E57476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD1C2924-696C-482F-80A5-96F045E57476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD1C2924-696C-482F-80A5-96F045E57476}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
