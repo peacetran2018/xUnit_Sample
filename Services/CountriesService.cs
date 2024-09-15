@@ -1,4 +1,4 @@
-﻿using ServiceContracts;
+using ServiceContracts;
 using ServiceContracts.DTO;
 namespace Services
 {
