@@ -114,5 +114,31 @@ namespace xUnit_Test
             }
         }
         #endregion
+        #region GetCountryByID
+        [Fact]
+        public void GetCountryByID_NullCountryID()
+        {
+            // Arrange
+            Guid? countryID = null;
+            // Act
+            CountryResponse country_response_from_get_method = _countriesService.GetCountryByID(countryID);
+            // Assert
+            Assert.Null(country_response_from_get_method);
+        }
+
+        [Fact]
+        public void GetCountryByID_ValidCountryID()
+        {
+            // Arrange
+            CountryAddRequest? country_add_request = new CountryAddRequest(){
+                CountryName = "Vietnam",
+            };
+            CountryResponse country_response_from_add = _countriesService.AddCountry(country_add_request);
+            // Act
+            CountryResponse? country_response_from_get = _countriesService.GetCountryByID(country_response_from_add.CountryId);
+            // Assert
+            Assert.Equal(country_response_from_add, country_response_from_get);
+        }
+        #endregion
     }
 }
