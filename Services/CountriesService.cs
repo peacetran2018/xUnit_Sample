@@ -19,7 +19,7 @@ namespace Services
             if(string.IsNullOrEmpty(countryAddRequest.CountryName)){
                 throw new ArgumentException(nameof(countryAddRequest.CountryName));
             }
-            var existingCountry = _countries.Where(x =>x.CountryName.Equals(countryAddRequest.CountryName)).Count();
+            var existingCountry = _countries.Where(x =>x.CountryName!.Equals(countryAddRequest.CountryName)).Count();
             if(existingCountry > 0){
                 throw new ArgumentException("Given country name already exists");
             }
