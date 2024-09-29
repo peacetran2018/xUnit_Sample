@@ -16,6 +16,7 @@ namespace ServiceContracts.DTO
         public DateTime? DateOfBirth {get; set; }
         public string? Gender {get; set; }
         public Guid? CountryId { get; set; }
+        public string? Country { get; set; }
         public string? Address {get; set; }
         public bool ReceiveNewsLetters {get; set; }
         public double? Age {get; set; }
@@ -32,6 +33,10 @@ namespace ServiceContracts.DTO
         {
             return base.GetHashCode();
         }
+
+        public override string ToString(){
+            return $"Person ID: { PersonId }, Person Name: { PersonName }, Email: { Email }, DOB { DateOfBirth?.ToString("dd-MMM-yyyy")}, Gender { Gender }, Country ID: { CountryId }, Address: { Address }, ReceiveNewsLetters: { ReceiveNewsLetters }, Age: { Age }";
+        }
     }
 
     public static class PersonExtensions{
@@ -41,6 +46,7 @@ namespace ServiceContracts.DTO
                 PersonName = person.PersonName,
                 Email = person.Email,
                 DateOfBirth = person.DateOfBirth,
+                CountryId = person.CountryId,
                 Gender = person.Gender,
                 Address = person.Address,
                 ReceiveNewsLetters = person.ReceiveNewsLetters,

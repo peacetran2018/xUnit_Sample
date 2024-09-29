@@ -1,16 +1,19 @@
 using ServiceContracts;
 using ServiceContracts.DTO;
 using Services;
+using Xunit.Abstractions;
 
 namespace xUnit_Test
 {
     public class CountriesServiceTest
     {
         private readonly ICountriesService _countriesService;
+        private readonly ITestOutputHelper _testOutputHelper;
 
-        public CountriesServiceTest()
+        public CountriesServiceTest(ITestOutputHelper testOutputHelper)
         {
             _countriesService = new CountriesService();
+            _testOutputHelper = testOutputHelper;
         }
         #region AddCountry
         //When CountryAddRequest is null, it should throw ArgumentNullException
@@ -82,7 +85,7 @@ namespace xUnit_Test
             //Act
             CountryResponse response = _countriesService.AddCountry(request);
             List<CountryResponse> countries_from_GetAllCountries = _countriesService.GetAllCountries();
-
+            _testOutputHelper.WriteLine(response.CountryId.ToString());
             //Assert
             Assert.True(response.CountryId != Guid.Empty);
             //Contains method will call to Equals method to compare but default Equals method only compare reference instead actual values
