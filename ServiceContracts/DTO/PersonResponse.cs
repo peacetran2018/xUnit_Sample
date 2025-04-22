@@ -37,6 +37,19 @@ namespace ServiceContracts.DTO
         public override string ToString(){
             return $"Person ID: { PersonId }, Person Name: { PersonName }, Email: { Email }, DOB { DateOfBirth?.ToString("dd-MMM-yyyy")}, Gender { Gender }, Country ID: { CountryId }, Address: { Address }, ReceiveNewsLetters: { ReceiveNewsLetters }, Age: { Age }";
         }
+
+        public PersonUpdateRequest ToPersonUpdateRequest(){
+            return new PersonUpdateRequest(){
+                PersonID = PersonId,
+                PersonName = PersonName,
+                Email = Email,
+                DateOfBirth = DateOfBirth,
+                CountryId = CountryId,
+                Gender = (GenderOptions)Enum.Parse(typeof(GenderOptions), Gender, true),
+                Address = Address,
+                ReceiveNewsLetters = ReceiveNewsLetters
+            };
+        }
     }
 
     public static class PersonExtensions{

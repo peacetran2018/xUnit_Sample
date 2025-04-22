@@ -15,17 +15,19 @@ namespace Services
     public class PersonService : IPersonService
     {
         private readonly List<Person> _persons;
-        public PersonService(){
+        public PersonService()
+        {
             _persons = new List<Person>();
         }
-        
+
         public PersonResponse AddPerson(PersonAddRequest personAddRequest)
         {
-            if(personAddRequest == null){
+            if (personAddRequest == null)
+            {
                 throw new ArgumentNullException(nameof(personAddRequest));
             }
 
-            
+
             // if(string.IsNullOrEmpty(personAddRequest.PersonName)){
             //     throw new ArgumentException(nameof(personAddRequest.PersonName));
             // }
@@ -48,43 +50,45 @@ namespace Services
             List<PersonResponse> allPersons = GetAllPersons();
             List<PersonResponse> matchingPersons = allPersons;
 
-            if(string.IsNullOrEmpty(searchBy) || string.IsNullOrEmpty(searchString)){
+            if (string.IsNullOrEmpty(searchBy) || string.IsNullOrEmpty(searchString))
+            {
                 return matchingPersons;
             }
 
-            matchingPersons = searchBy switch{
+            matchingPersons = searchBy switch
+            {
                 //PersonName
-                nameof(Person.PersonName) => allPersons.Where(x => 
-                (!string.IsNullOrEmpty(x.PersonName) ? 
+                nameof(Person.PersonName) => allPersons.Where(x =>
+                (!string.IsNullOrEmpty(x.PersonName) ?
                  x.PersonName!.Contains(searchString, StringComparison.OrdinalIgnoreCase) :
                  true
                  )).ToList(),
                 //Email
-                nameof(Person.Email) => allPersons.Where(x => 
+                nameof(Person.Email) => allPersons.Where(x =>
                 (!string.IsNullOrEmpty(x.Email) ?
                 x.Email.Contains(searchString, StringComparison.OrdinalIgnoreCase) :
                 true
                 )).ToList(),
                 //DOB
-                nameof(Person.DateOfBirth) => allPersons.Where(x => 
+                nameof(Person.DateOfBirth) => allPersons.Where(x =>
                 (x.DateOfBirth != null) ?
                 x.DateOfBirth.Value.ToString("dd-MMM-yyyy").Contains(searchString, StringComparison.OrdinalIgnoreCase) :
                 true
                 ).ToList(),
                 //Email
-                nameof(Person.Gender) => allPersons.Where(x => 
+                nameof(Person.Gender) => allPersons.Where(x =>
                 (!string.IsNullOrEmpty(x.Gender) ?
                 x.Gender.Contains(searchString, StringComparison.OrdinalIgnoreCase) :
                 true
                 )).ToList(),
                 //Country
-                nameof(Person.CountryId) => allPersons.Where(x => 
+                nameof(Person.CountryId) => allPersons.Where(x =>
                 (!string.IsNullOrEmpty(x.Country) ?
                 x.Country.Contains(searchString, StringComparison.OrdinalIgnoreCase) :
                 true
                 )).ToList(),
                 //Address
-                nameof(Person.Address) => allPersons.Where(x => 
+                nameof(Person.Address) => allPersons.Where(x =>
                 (!string.IsNullOrEmpty(x.Address) ?
                 x.Address.Contains(searchString, StringComparison.OrdinalIgnoreCase) :
                 true
@@ -96,12 +100,14 @@ namespace Services
 
         public PersonResponse? GetPersonById(Guid? personID)
         {
-            if(personID == null){
+            if (personID == null)
+            {
                 return null;
             }
 
             Person? person = _persons.FirstOrDefault(x => x.PersonId == personID);
-            if(person == null){
+            if (person == null)
+            {
                 return null;
             }
 
@@ -110,10 +116,12 @@ namespace Services
 
         public List<PersonResponse> GetSortedPerson(List<PersonResponse> allPersons, string sortBy, SortOrderOptions sortOrders)
         {
-            if(string.IsNullOrEmpty(sortBy)){
+            if (string.IsNullOrEmpty(sortBy))
+            {
                 return allPersons;
             }
-           List<PersonResponse> sortedPerson = (sortBy, sortOrders) switch{
+            List<PersonResponse> sortedPerson = (sortBy, sortOrders) switch
+            {
                 //PersonName
                 (nameof(PersonResponse.PersonName), SortOrderOptions.ASC) => allPersons.OrderBy(x => x.PersonName, StringComparer.OrdinalIgnoreCase).ToList(),
                 (nameof(PersonResponse.PersonName), SortOrderOptions.DESC) => allPersons.OrderByDescending(x => x.PersonName, StringComparer.OrdinalIgnoreCase).ToList(),
@@ -139,9 +147,52 @@ namespace Services
                 (nameof(PersonResponse.ReceiveNewsLetters), SortOrderOptions.ASC) => allPersons.OrderBy(x => x.ReceiveNewsLetters).ToList(),
                 (nameof(PersonResponse.ReceiveNewsLetters), SortOrderOptions.DESC) => allPersons.OrderByDescending(x => x.ReceiveNewsLetters).ToList(),
                 _ => allPersons
-           };
+            };
 
             return sortedPerson;
+        }
+
+        public PersonResponse UpdatePerson(PersonUpdateRequest? personAddRequest)
+        {
+            if (personAddRequest == null)
+            {
+                throw new ArgumentNullException(nameof(Person));
+            }
+            //validation
+            ValidationHelper.ModelValidation(personAddRequest);
+            //Get matching person object to update
+            Person? matchingPerson = _persons.FirstOrDefault(x => x.PersonId == personAddRequest.PersonID);
+            if (matchingPerson == null)
+            {
+                throw new ArgumentException("Given person id doesn't exist");
+            }
+
+
+            //update all details
+            matchingPerson.PersonName = personAddRequest.PersonName;
+            matchingPerson.Address = personAddRequest.Address;
+            matchingPerson.DateOfBirth = personAddRequest.DateOfBirth;
+            matchingPerson.Email = personAddRequest.Email;
+            matchingPerson.Gender = personAddRequest.Gender.ToString();
+            matchingPerson.CountryId = personAddRequest.CountryId;
+            matchingPerson.ReceiveNewsLetters = personAddRequest.ReceiveNewsLetters;
+
+            return matchingPerson.ToPersonResponse();
+        }
+
+        public bool DeletePerson(Guid? personID)
+        {
+            if (personID == null)
+            {
+                throw new ArgumentNullException(nameof(personID));
+            }
+            Person? matchingPerson = _persons.FirstOrDefault(x => x.PersonId == personID);
+            if (matchingPerson == null)
+            {
+                return false;
+            }
+            bool isDeleted = _persons.Remove(matchingPerson);
+            return isDeleted;
         }
     }
 }

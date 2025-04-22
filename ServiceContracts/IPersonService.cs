@@ -17,5 +17,12 @@ namespace ServiceContracts
         PersonResponse? GetPersonById(Guid? personID);
         List<PersonResponse> GetFilteredPersons(string searchBy, string? searchString);
         List<PersonResponse> GetSortedPerson(List<PersonResponse> allPersons, string sortBy, SortOrderOptions sortOrders);
+        PersonResponse UpdatePerson(PersonUpdateRequest? personAddRequest);
+
+        /// <summary>
+        /// Deletes a person based on the given persion ID
+        /// </summary>
+        /// <param name="PersonID"></param>
+        bool DeletePerson(Guid? personID);
     }
 }
